@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: peerdb <peerdb@student.codam.nl>             +#+                      #
+#    By: Peer <pde-bakk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
-#    Created: 2020/03/19 17:13:57 by peerdb         #+#    #+#                 #
-#    Updated: 2020/03/20 12:59:22 by peerdb        ########   odam.nl          #
+#    Created: 2020/03/19 17:13:57 by peerdb        #+#    #+#                  #
+#    Updated: 2020/05/06 17:27:30 by Peer          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,11 @@ endif
 
 SRC_DIR = src/
 
-SRC = hello.s
+SRC = ft_strlen.s ft_strcpy.s ft_strcmp.s
 
 OBJ = $(SRC%.s=%.o)
+
+all: $(NAME)
 
 %.o : %.s
 	nasm -f elf64 $< -o $@
@@ -33,6 +35,6 @@ clean:
 	rm -rf $(addprefix $(SRC_DIR), $(OBJ))
 
 fclean: clean
-	rm $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all
