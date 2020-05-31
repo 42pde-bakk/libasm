@@ -6,7 +6,7 @@
 #    By: Peer <pde-bakk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/03/19 17:13:57 by peerdb        #+#    #+#                  #
-#    Updated: 2020/05/06 17:27:30 by Peer          ########   odam.nl          #
+#    Updated: 2020/05/31 15:21:52 by Peer          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ endif
 
 SRC_DIR = src/
 
-SRC = ft_strlen.s ft_strcpy.s ft_strcmp.s
+SRC = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_strlen.s ft_write.s ft_read.s
 
 OBJ = $(SRC%.s=%.o)
 
@@ -38,3 +38,7 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
+
+test: re
+	gcc -L . -lasm main.c -o test
+	./test
