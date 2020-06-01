@@ -6,7 +6,7 @@
 #    By: Peer <pde-bakk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/03/19 17:13:57 by peerdb        #+#    #+#                  #
-#    Updated: 2020/05/31 15:21:52 by Peer          ########   odam.nl          #
+#    Updated: 2020/06/01 15:25:33 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,12 @@ SRC_DIR = src/
 
 SRC = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_strlen.s ft_write.s ft_read.s
 
-OBJ = $(SRC%.s=%.o)
+OBJ = $(SRC:%.s=%.o)
 
 all: $(NAME)
 
 %.o : %.s
-	nasm -f elf64 $< -o $@
+	nasm -fmacho64 $< -o $@
 
 $(NAME): $(addprefix $(SRC_DIR), $(OBJ))
 	ar -rcs $(NAME) $^

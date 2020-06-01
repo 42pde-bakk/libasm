@@ -6,7 +6,7 @@
 ;    By: Peer <pde-bakk@student.codam.nl>             +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/04/29 14:31:51 by Peer          #+#    #+#                  ;
-;    Updated: 2020/05/30 15:28:50 by Peer          ########   odam.nl          ;
+;    Updated: 2020/06/01 15:30:35 by pde-bakk      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -20,9 +20,9 @@ _ft_strcpy:
 	je	error
 
 loop:
-	mov d1, byte [rsi + rax]	;move src char to register
-	mov byte [rdi + rax], d1	;move register into dest string
-	cmp	d1, 0					;check delimiter
+	mov r8b, byte [rsi + rax]	;move src char to register
+	mov byte [rdi + rax], r8b	;move register into dest string
+	cmp	r8b, 0					;check delimiter
 	je	ret
 	inc	rax
 	jmp	loop
