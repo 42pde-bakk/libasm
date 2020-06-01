@@ -6,7 +6,7 @@
 ;    By: Peer <pde-bakk@student.codam.nl>             +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/04/29 14:31:55 by Peer          #+#    #+#                  ;
-;    Updated: 2020/06/01 15:32:14 by pde-bakk      ########   odam.nl          ;
+;    Updated: 2020/06/01 15:34:49 by pde-bakk      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -47,6 +47,6 @@ error:
 
 ret:
 	sub r10b, r9b
-	mov al, r10b
+	mov al, r10b ;rax subregister
 	ret
 	
