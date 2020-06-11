@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 16:51:14 by Peer          #+#    #+#                 */
-/*   Updated: 2020/05/31 15:11:08 by Peer          ########   odam.nl         */
+/*   Updated: 2020/06/11 18:47:07 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,16 @@ void	ft_strlentest(void)
 
 void	ft_strcpytest(void)
 {
-	char	*dst;
-	char	*src;
-	char	*ret;
+	char	*s1 = malloc(sizeof(char) * 10);
+	char	*s2 = malloc(sizeof(char) * 10);
 
-	dst = "bigboss";
-	src = ":)";
-	ret = NULL;
-	printf("STRCPY: \n");
-	printf("before copying:\ndest: %s, src: %s, ret: %p\n", dst, src, ret);
-	ret = ft_strcpy(dst, src);
-	printf("after copying:\ndest: %s, src: %s, ret: %p\n", dst, src, ret);
+	s2 = "hallodoei";
+    printf("ft_strcpy = %s\n", ft_strcpy(s1, s2));
+    printf("strcpy = %s\n", strcpy(s1, s2));
+    printf("strcpy = %s\n", strcpy(s1, "Hello world!!!"));
+    printf("ft_strcpy = %s\n", ft_strcpy(s1, "Hello world!!!"));
+    printf("ft_strcpy = %s\n", ft_strcpy(s1, 0));
+    printf("ft_strcpy = %s\n\n", ft_strcpy(0, s1));
 }
 
 void	ft_strcmptest(void)
@@ -56,13 +55,15 @@ void	ft_strcmptest(void)
 	char	s3[] = "hoezee";
 
 	printf("Strcmp: \n");
-	printf("s1: %s, s2: %s, return: %i\n", s1, s2, ft_strcmp(s1, s2));
-	printf("s1: %s, s3: %s, return: %i\n", s1, s3, ft_strcmp(s1, s3));
+	printf("s1: %s, s2: %s, my return: %i\n", s1, s2, ft_strcmp(s1, s2));
+	printf("s1: %s, s2: %s, og return: %i\n", s1, s2, strcmp(s1, s2));
+	printf("s1: %s, s3: %s, my return: %i\n", s1, s3, ft_strcmp(s1, s3));
+	printf("s1: %s, s3: %s, og return: %i\n", s1, s3, strcmp(s1, s3));
 }
 
 void	ft_writetest(void)
 {
-	char	s1[] = "yeet";
+	char	s1[] = "yeet\n";
 
 	int a = write(1, s1, sizeof(s1));
 	int	b = ft_write(1, s1, sizeof(s1));
@@ -73,11 +74,18 @@ void	ft_writetest(void)
     b = ft_write(FOPEN_MAX + 1, "abcdefghijklmnopqrstuvwxyz\n", 27);
 	perror("ft_write errno");
     printf("return write = %d\nreturn ft_write = %d\n", a, b);
-	int testfd = open("hats.c", O_RDWR | O_CREAT, 0644);
-	int c = 0;
+	// int testfd = open("hats.c", O_RDWR | O_CREAT, 0644);
+	int	testfd = OPEN_MAX + 1;
 	if (testfd > 2)
-		c = ft_write(testfd, "hatsssssss", 8);
-	printf("hats return value = %d\n", c);
+	{
+		int c = ft_write(testfd, "hatsssssss", 8);
+		if (c < 0)
+			perror("my write error");
+		int d = write(testfd, "hatsssssss", 8);
+		if (d < 0)
+			perror("real write error");
+		printf("hats mine: %d, real: %d\n", c, d);
+	}
 }
 
 void	ft_readtest(void)
@@ -111,10 +119,10 @@ void	ft_readtest(void)
 
 int	main(void)
 {
-	ft_strlentest();
-	ft_strcpytest();
-	ft_strcmptest();
-	ft_writetest();
+	// ft_strlentest();
+	// ft_strcpytest();
+	// ft_strcmptest();
+	// ft_writetest();
 	ft_readtest();
 	// ft_strduptest();
 }

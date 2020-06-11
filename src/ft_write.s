@@ -6,23 +6,25 @@
 ;    By: Peer <pde-bakk@student.codam.nl>             +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/05/30 15:39:43 by Peer          #+#    #+#                  ;
-;    Updated: 2020/05/31 15:10:18 by Peer          ########   odam.nl          ;
+;    Updated: 2020/06/11 18:46:08 by pde-bakk      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
 global	_ft_write
-extern __error
+extern ___error
 
-_ft_write:					; rdi = file descriptor, rsi = string, rdx = byte count
-	mov		rax, 0x2000001	; BSD calling convention (syscall 4 = read on mac, 1 on linux)
+WRITE_ID	equ 0x2000004
+
+_ft_write:
+	mov	rax, WRITE_ID
 	syscall
-	jc		error			;error sets carry flag, rax = errno
+	jc	error
 	ret
 
 error:
-	mov		r15, rax		; save errno 
-	call	___error	; retrieve address to errno
-	mov		[rax], r15	; put errno in return value of __error (pointer to errno)
-	mov		rax, -1
+	mov r15, rax
+	call ___error
+	mov [rax], r15
+	mov	rax, -1
 	ret
-			
+	
