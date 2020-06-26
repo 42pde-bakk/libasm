@@ -6,7 +6,7 @@
 #    By: Peer <pde-bakk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/03/19 17:13:57 by peerdb        #+#    #+#                  #
-#    Updated: 2020/06/01 15:25:33 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/06/18 16:53:17 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,12 @@ endif
 
 SRC_DIR = src/
 
-SRC = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_strlen.s ft_write.s ft_read.s
+SRC =	ft_strlen.s \
+		ft_strcpy.s \
+		ft_strcmp.s \
+		ft_write.s \
+		ft_read.s \
+		ft_strdup.s
 
 OBJ = $(SRC:%.s=%.o)
 

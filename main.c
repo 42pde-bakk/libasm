@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 16:51:14 by Peer          #+#    #+#                 */
-/*   Updated: 2020/06/11 18:47:07 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/06/18 17:00:32 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,26 +93,27 @@ void	ft_readtest(void)
 	char	buf1[300];
 	char	buf2[300];
 
-	int	fd = open("src/ft_read.s", O_RDONLY);
-	int	a = read(fd, buf1, 250);
+	int	fd = open("hats", O_RDONLY);
+	int	a = read(fd, buf1, 20);
+	printf("test1: buf1 = %s\n", buf1);
 	close(fd);
-	fd = open("src/ft_read.s", O_RDONLY);
-	int	b = ft_read(fd, buf2, 250);
+	fd = open("hats", O_RDONLY);
+	int	b = ft_read(fd, buf2, 20);
 	printf("read returned %d and ft_read returned %d\n", a, b);
 	printf("strcmp(buf1, buf2) = %d\n", strcmp(buf1, buf2));
-	    a = read(333, buf1, 250);
+	    a = read(333, buf1, 20);
 	perror("read errno");
 	errno = 100;
-    b = ft_read(333, buf2, 250);
+    b = ft_read(333, buf2, 20);
 	perror("ft_read errno");
     printf("return read = %d\nreturn ft_read = %d\n", a, b);
     printf("strcmp(buffer_read, buffer_ft_read) = %d\n", ft_strcmp(buf1, buf2));
     close(fd);
-    fd = open("ft_read.s", O_RDONLY);
-    a = read(fd, NULL, 250);
+    fd = open("hats", O_RDONLY);
+    a = read(fd, NULL, 20);
 	perror("read errno");
 	errno = 100;
-    b = ft_read(fd, NULL, 250);
+    b = ft_read(fd, NULL, 20);
 	perror("ft_read errno");
     printf("return read = %d\nreturn ft_read = %d\n\n", a, b);
 }
