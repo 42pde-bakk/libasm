@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 16:51:14 by Peer          #+#    #+#                 */
-/*   Updated: 2020/06/18 17:00:32 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/06/27 17:22:05 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,25 @@ void	ft_readtest(void)
     b = ft_read(fd, NULL, 20);
 	perror("ft_read errno");
     printf("return read = %d\nreturn ft_read = %d\n\n", a, b);
+}
+
+void	ft_strduptest(void)
+{
+	char	*official;
+	char	*mine;
+
+	official = strdup("Hallo wereld");
+	mine = ft_strdup("Hallo wereld");
+	printf("official: %s\nmine: %s\n", official, mine);
+	free(official); free(mine);
+	official = strdup("");
+	mine = ft_strdup("");
+	printf("official: %s\nmine: %s\n", official, mine);
+	free(official); free(mine);
+	official = strdup(NULL);
+	mine = ft_strdup(NULL);
+	printf("official: %s\nmine: %s\n", official, mine);
+	free(official); free(mine);
 }
 
 int	main(void)
