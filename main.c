@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 16:51:14 by Peer          #+#    #+#                 */
-/*   Updated: 2020/06/27 17:22:05 by Peer          ########   odam.nl         */
+/*   Updated: 2020/07/22 16:45:26 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_writetest(void)
 	printf("write returned %i and ft_write returned %i\n", a, b);
     a = write(FOPEN_MAX + 1, "abcdefghijklmnopqrstuvwxyz\n", 27);
 	perror("write errno");
-	errno = 100;
+	errno = 0;
     b = ft_write(FOPEN_MAX + 1, "abcdefghijklmnopqrstuvwxyz\n", 27);
 	perror("ft_write errno");
     printf("return write = %d\nreturn ft_write = %d\n", a, b);
@@ -98,6 +98,7 @@ void	ft_readtest(void)
 	printf("test1: buf1 = %s\n", buf1);
 	close(fd);
 	fd = open("hats", O_RDONLY);
+	printf("fd = %d\n", fd);
 	int	b = ft_read(fd, buf2, 20);
 	printf("read returned %d and ft_read returned %d\n", a, b);
 	printf("strcmp(buf1, buf2) = %d\n", strcmp(buf1, buf2));
@@ -129,20 +130,26 @@ void	ft_strduptest(void)
 	free(official); free(mine);
 	official = strdup("");
 	mine = ft_strdup("");
-	printf("official: %s\nmine: %s\n", official, mine);
+	printf("official: %s$\t and\tmine: %s$\n", official, mine);
 	free(official); free(mine);
-	official = strdup(NULL);
+	errno = 0;
 	mine = ft_strdup(NULL);
-	printf("official: %s\nmine: %s\n", official, mine);
-	free(official); free(mine);
+	if (fork() == 0)
+	{
+		strdup(NULL);
+		printf("this fucking piece of shit crashes\n");
+	}
+	perror("strdup null");
+	printf("mine: %s\n", mine);
+	free(mine);
 }
 
 int	main(void)
 {
-	// ft_strlentest();
+	ft_strlentest();
 	// ft_strcpytest();
 	// ft_strcmptest();
 	// ft_writetest();
-	ft_readtest();
+	// ft_readtest();
 	// ft_strduptest();
 }

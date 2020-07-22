@@ -3,49 +3,42 @@
 ;                                                         ::::::::             ;
 ;    ft_strdup.s                                        :+:    :+:             ;
 ;                                                      +:+                     ;
-;    By: Peer <pde-bakk@student.codam.nl>             +#+                      ;
+;    By: pde-bakk <pde-bakk@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
-;    Created: 2020/05/30 15:46:47 by Peer          #+#    #+#                  ;
-;    Updated: 2020/06/18 16:39:56 by pde-bakk      ########   odam.nl          ;
+;    Created: 2020/07/22 14:52:25 by pde-bakk      #+#    #+#                  ;
+;    Updated: 2020/07/22 16:39:23 by pde-bakk      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
-global	_ft_strdup
+global _ft_strdup
+extern _ft_strlen
 extern _malloc
 
+section .text
+
 _ft_strdup:
-    cmp     rdi, 0
-    je      error
-    mov     rcx, 0
+	cmp rdi, 0						; Check if incoming string is NULL
+	je error
+	call _ft_strlen					; rax = ft_strlen(str)
+	push rdi					; Stack allignment part 1
+	inc rax							; we also need a spot for \0
+	mov rdi, rax					; save rax value in rdi (argument for malloc)
+	call _malloc					
+	cmp rax, 0						; Check the malloc return
+	je error
+	pop rdi						; Stack allignment part 2
+	xor r9, r9						; i = 0
 
-inc_len:
-    inc     rcx
-
-len:
-    cmp     byte[rdi + rcx], 0
-    jne     inc_len                 ; get string length (for the malloc call)
-
-allocate:
-    mov     rbx, rdi
-    mov     rdi, rcx
-    push    rdi
-    call    _malloc
-    pop     rdi
-    cmp     rax, 0
-    je      error
-    mov     rcx, 0
-
-copy:
-    mov     dl, byte[rbx + rcx]
-    mov     byte[rax + rcx], dl
-    cmp     dl, 0
-    je      return
-    inc     rcx
-    jmp     copy
+loop:
+	mov r8b, [rdi + r9]
+	mov byte [rax + r9], r8b		; Copy value into malloced string
+	cmp r8b, 0						; Check for \0
+	je ret
+	inc r9							; i++;
+	jmp loop
 
 error:
-    mov     rax, 0
-    ret
+	mov rax, 0						; if an error happens, return NULL
 
-return:
-    ret
+ret:
+	ret
