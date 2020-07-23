@@ -6,13 +6,12 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 16:51:14 by Peer          #+#    #+#                 */
-/*   Updated: 2020/07/22 16:45:26 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/07/23 19:31:22 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libasm.h"
 #include <stdio.h>
-#include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
@@ -28,10 +27,11 @@ void	ft_strlentest(void)
 	str = "abcdef0123";
 	out = ft_strlen(str);
 	ref = strlen(str);
+	printf("str = %s, my strlen = %zu, real strlen = %zu\n", str, out, ref);
 	if (out == ref)
-		printf("strlen succesfull\n");
+		printf("strlen succesfull\n\n");
 	else
-		printf("strlen failed. str = %s, my output = %ld, real = %ld\n", str, out, ref);	
+		printf("strlen failed. str = %s, my output = %ld, real = %ld\n\n", str, out, ref);	
 }
 
 void	ft_strcpytest(void)
@@ -40,12 +40,12 @@ void	ft_strcpytest(void)
 	char	*s2 = malloc(sizeof(char) * 10);
 
 	s2 = "hallodoei";
-    printf("ft_strcpy = %s\n", ft_strcpy(s1, s2));
-    printf("strcpy = %s\n", strcpy(s1, s2));
-    printf("strcpy = %s\n", strcpy(s1, "Hello world!!!"));
-    printf("ft_strcpy = %s\n", ft_strcpy(s1, "Hello world!!!"));
-    printf("ft_strcpy = %s\n", ft_strcpy(s1, 0));
-    printf("ft_strcpy = %s\n\n", ft_strcpy(0, s1));
+    printf("ft_strcpy\t= %s\n", ft_strcpy(s1, s2));
+    printf("strcpy\t\t= %s\n", strcpy(s1, s2));
+    printf("strcpy\t\t= %s\n", strcpy(s1, "Hello world!!!"));
+    printf("ft_strcpy\t= %s\n", ft_strcpy(s1, "Hello world!!!"));
+    printf("ft_strcpy\t= %s\n", ft_strcpy(s1, 0));
+    printf("ft_strcpy\t= %s\n\n", ft_strcpy(0, s1));
 }
 
 void	ft_strcmptest(void)
@@ -58,7 +58,7 @@ void	ft_strcmptest(void)
 	printf("s1: %s, s2: %s, my return: %i\n", s1, s2, ft_strcmp(s1, s2));
 	printf("s1: %s, s2: %s, og return: %i\n", s1, s2, strcmp(s1, s2));
 	printf("s1: %s, s3: %s, my return: %i\n", s1, s3, ft_strcmp(s1, s3));
-	printf("s1: %s, s3: %s, og return: %i\n", s1, s3, strcmp(s1, s3));
+	printf("s1: %s, s3: %s, og return: %i\n\n", s1, s3, strcmp(s1, s3));
 }
 
 void	ft_writetest(void)
@@ -86,13 +86,15 @@ void	ft_writetest(void)
 			perror("real write error");
 		printf("hats mine: %d, real: %d\n", c, d);
 	}
+	printf("\n");
 }
 
 void	ft_readtest(void)
 {
-	char	buf1[300];
-	char	buf2[300];
+	char	buf1[21];
+	char	buf2[21];
 
+	bzero(&buf1, 21); bzero(&buf2, 21);
 	int	fd = open("hats", O_RDONLY);
 	int	a = read(fd, buf1, 20);
 	printf("test1: buf1 = %s\n", buf1);
@@ -100,6 +102,7 @@ void	ft_readtest(void)
 	fd = open("hats", O_RDONLY);
 	printf("fd = %d\n", fd);
 	int	b = ft_read(fd, buf2, 20);
+	printf("test1: buf1 = %s\n", buf1);
 	printf("read returned %d and ft_read returned %d\n", a, b);
 	printf("strcmp(buf1, buf2) = %d\n", strcmp(buf1, buf2));
 	    a = read(333, buf1, 20);
@@ -140,16 +143,16 @@ void	ft_strduptest(void)
 		printf("this fucking piece of shit crashes\n");
 	}
 	perror("strdup null");
-	printf("mine: %s\n", mine);
+	printf("mine: %s\n\n", mine);
 	free(mine);
 }
 
 int	main(void)
 {
 	ft_strlentest();
-	// ft_strcpytest();
-	// ft_strcmptest();
-	// ft_writetest();
-	// ft_readtest();
-	// ft_strduptest();
+	ft_strcpytest();
+	ft_strcmptest();
+	ft_writetest();
+	ft_readtest();
+	ft_strduptest();
 }

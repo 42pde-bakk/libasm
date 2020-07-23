@@ -6,7 +6,7 @@
 ;    By: pde-bakk <pde-bakk@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/07/22 14:52:25 by pde-bakk      #+#    #+#                  ;
-;    Updated: 2020/07/22 16:39:23 by pde-bakk      ########   odam.nl          ;
+;    Updated: 2020/07/23 19:34:20 by pde-bakk      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -25,8 +25,8 @@ _ft_strdup:
 	mov rdi, rax					; save rax value in rdi (argument for malloc)
 	call _malloc					
 	cmp rax, 0						; Check the malloc return
-	je error
 	pop rdi						; Stack allignment part 2
+	je error
 	xor r9, r9						; i = 0
 
 loop:
